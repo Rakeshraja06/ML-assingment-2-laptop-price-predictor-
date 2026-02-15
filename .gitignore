@@ -1,7 +1,43 @@
+# Environment & System
 .devcontainer/
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+*.log
+
+# Project Specific
 image*.png
 *.zip
-submission.md
-.DS_Store
-__pycache__/
-*.log
+temp_submission.html
+convert_md_to_docx.py
+~*
+~$*
+!submission.docx
+!submission.md
