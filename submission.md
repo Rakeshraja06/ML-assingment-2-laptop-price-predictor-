@@ -1,6 +1,29 @@
-# 💻 ML Assignment 2 — Laptop Price Classification
+# Assignment Submission: Laptop Price Predictor
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://jnqrrbkmfgg45ywjtnoyrb.streamlit.app/)
+## 1. GitHub Repository Link
+**Link:** [https://github.com/Rakeshraja06/ML-assingment-2-laptop-price-predictor-](https://github.com/Rakeshraja06/ML-assingment-2-laptop-price-predictor-)
+
+The repository contains:
+- **Complete Source Code**
+- **requirements.txt**
+- **Restructured README.md**
+
+---
+
+## 2. Live Streamlit App Link
+**Link:** [https://jnqrrbkmfgg45ywjtnoyrb.streamlit.app/](https://jnqrrbkmfgg45ywjtnoyrb.streamlit.app/)
+
+---
+
+## 3. Screenshot of Execution on BITS Virtual Lab
+
+![BITS Virtual Lab Screenshot](placeholder_for_screenshot.png)
+
+---
+
+## 4. Project Documentation (README.md)
+
+# 💻 ML Assignment 2 — Laptop Price Classification
 
 ---
 
@@ -62,33 +85,6 @@ The goal of this project is to build and compare **six machine learning classifi
 | **Naive Bayes** | The weakest performer (51.37%). This is likely due to its strong assumption of feature independence, which is violated by the high correlation between specs like RAM, CPU, and Price. |
 | **Random Forest (Ensemble)** | Significantly improves performance over a single Decision Tree by reducing overfitting through bagging, resulting in a robust 84.71% accuracy. |
 | **XGBoost (Ensemble)** | The top performer (87.45%). Its sequential boosting approach effectively minimizes errors that other models miss, making it the most reliable for this classification task. |
-
----
-
-## 📁 Repository Structure
-
-```
-ML Assingment 2/
-│
-├── .devcontainer/                  # Development container configuration
-├── README.md                       # Project documentation
-├── requirements.txt                # Python dependencies
-├── train_models.py                 # Standalone training script
-├── app.py                          # Streamlit web application
-├── laptop_data_cleaned.csv         # Cleaned dataset
-├── model_comparison_metrics.csv    # Evaluation results
-└── all_models.pkl                  # All 6 trained model pipelines
-```
-
----
-
-## 🚀 Getting Started
-
-### Installation
-```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
 
 ---
 
