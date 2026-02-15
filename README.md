@@ -89,17 +89,15 @@ Build and compare **six classification algorithms** — including both tradition
 ```
 ML Assingment 2/
 │
+├── .devcontainer/                  # Development container configuration
 ├── README.md                       # Project documentation
 ├── requirements.txt                # Python dependencies
-├── .gitignore                      # Git ignore rules
-├── laptop_classification.ipynb     # Full EDA + training notebook
 ├── train_models.py                 # Standalone training script
 ├── app.py                          # Streamlit web application
 ├── laptop_data_cleaned.csv         # Cleaned dataset
 ├── model_comparison_metrics.csv    # Evaluation results
-├── all_models.pkl                  # All 6 trained model pipelines (single file)
-│
-└── zip file                        
+└── all_models.pkl                  # All 6 trained model pipelines
+```                      
 
 ---
 
