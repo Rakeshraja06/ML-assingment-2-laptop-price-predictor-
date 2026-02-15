@@ -31,7 +31,7 @@ Build and compare **six classification algorithms** — including both tradition
 
 | Property | Detail |
 |----------|--------|
-| **Source** | Laptop Price Dataset (cleaned) |
+| **Source** | [Laptop Price Prediction Cleaned Dataset (Kaggle)](https://www.kaggle.com/datasets/gyanprakashkushwaha/laptop-price-prediction-cleaned-dataset) |
 | **Instances** | 1,273 |
 | **Features** | 12 (5 categorical, 7 numerical) |
 | **Target** | `Price_Category` — Low · Medium · High |
@@ -97,7 +97,7 @@ ML Assingment 2/
 ├── laptop_data_cleaned.csv         # Cleaned dataset
 ├── model_comparison_metrics.csv    # Evaluation results
 └── all_models.pkl                  # All 6 trained model pipelines
-```                      
+```
 
 ---
 
