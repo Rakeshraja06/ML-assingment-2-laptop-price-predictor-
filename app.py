@@ -110,9 +110,9 @@ ALL_MODELS_PATH = "all_models.pkl"
 METRICS_PATH = "model_comparison_metrics.csv"
 GITHUB_BASE_URL = "https://raw.githubusercontent.com/Rakeshraja06/ML-assingment-2-laptop-price-predictor-/main/"
 
-def download_file(filename):
-    """Download a file from GitHub if it's not present locally."""
-    if not os.path.exists(filename):
+def download_file(filename, force=False):
+    """Download a file from GitHub. Overwrites if force=True or if not present."""
+    if not os.path.exists(filename) or force:
         try:
             url = GITHUB_BASE_URL + filename
             response = requests.get(url)
@@ -180,9 +180,17 @@ def get_model(name):
 
 @st.cache_data
 def load_metrics():
-    if download_file(METRICS_PATH):
-        return pd.read_csv(METRICS_PATH)
-    return None
+    # Try loading local first
+    metrics = None
+    if os.path.exists(METRICS_PATH):
+        metrics = pd.read_csv(METRICS_PATH)
+    
+    # If file missing or doesn't have the new AUC column, force download
+    if metrics is None or "AUC Score" not in metrics.columns:
+        if download_file(METRICS_PATH, force=True):
+            metrics = pd.read_csv(METRICS_PATH)
+            
+    return metrics
 
 # ──────────────────────────────────────────────
 # Helper: colour score
@@ -231,7 +239,7 @@ with st.sidebar:
         row = metrics_df[metrics_df["ML Model Name"] == selected_model_name]
         if not row.empty:
             acc = row["Accuracy"].values[0]
-            auc = row["AUC Score"].values[0]
+            auc = row["AUC Score"].values[0] if "AUC Score" in row.columns else 0
             f1  = row["F1 Score"].values[0]
             
             st.metric("Accuracy", f"{acc:.2%}")
@@ -297,7 +305,8 @@ with tab_perf:
                 ("F1 Score", "F1 Score"),
                 ("MCC", "MCC"),
             ]):
-                col.markdown(metric_card(label, r[key]), unsafe_allow_html=True)
+                val = r[key] if key in r else 0
+                col.markdown(metric_card(label, val), unsafe_allow_html=True)
 
         st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
 
