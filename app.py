@@ -125,13 +125,13 @@ def download_file(filename, force=False):
     return os.path.exists(filename)
 
 MODEL_INFO = {
-    "XGBoost": {
+    "XGBoost (Ensemble)": {
         "type": "Ensemble",
         "technique": "Gradient Boosting",
         "icon": "🚀",
         "desc": "XGBoost uses **gradient boosting** — it trains decision trees sequentially, where each new tree corrects the errors of the previous ones. This makes it one of the most powerful ML algorithms.",
     },
-    "Random Forest": {
+    "Random Forest (Ensemble)": {
         "type": "Ensemble",
         "technique": "Bagging",
         "icon": "🌲",
@@ -174,8 +174,18 @@ def load_all_models():
 
 def get_model(name):
     models = load_all_models()
-    if models and name in models:
+    if not models:
+        return None
+        
+    # Try exact match first
+    if name in models:
         return models[name]
+        
+    # Try removing suffixes like " (Ensemble)"
+    simple_name = name.replace(" (Ensemble)", "")
+    if simple_name in models:
+        return models[simple_name]
+        
     return None
 
 @st.cache_data
