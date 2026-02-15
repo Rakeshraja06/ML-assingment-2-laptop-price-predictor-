@@ -43,10 +43,15 @@ The goal of this project is to build and compare six machine learning classifica
 | **KNN** | 0.8039 | 0.8421 | 0.8117 | 0.8039 | 0.8061 | 0.7073 |
 | **Naive Bayes** | 0.5137 | 0.6542 | 0.6031 | 0.5137 | 0.4731 | 0.3064 |
 
-### 2. Technical Observations
-- **Ensemble Dominance**: XGBoost and Random Forest significantly outperform traditional models, with XGBoost achieving the highest accuracy (**87.45%**) and AUC (**0.94**).
-- **Linear Baseline**: Logistic Regression provides a solid baseline (80.78%), showing that the laptop price data has strong linear relationships with hardware specs.
-- **Naive Bayes Limitation**: Performs poorly (51.37%) likely due to the strong correlation between features (e.g., Ram and CPU brand), violating its independence assumption.
+### 2. Observation Table
+| ML Model Name | Observation about model performance |
+|:--------------|:------------------------------------|
+| **Logistic Regression** | Provides a strong baseline. Efficiently identifies linear relationships in hardware specs. |
+| **Decision Tree** | Interpretable but less stable; accuracy is comparable to baseline methods. |
+| **kNN** | Effective at local pattern matching based on similar laptop configurations. |
+| **Naive Bayes** | Weakest performer; the independence assumption is violated by correlated features like RAM and CPU brand. |
+| **Random Forest (Ensemble)** | Significant boost in stability and accuracy using the bagging technique. |
+| **XGBoost (Ensemble)** | **Top performer** (87.5% Accuracy); gradient boosting effectively minimizes residual errors. |
 
 ---
 
