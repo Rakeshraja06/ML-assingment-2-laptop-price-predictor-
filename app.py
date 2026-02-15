@@ -6,6 +6,8 @@ import os
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
+import requests
+import io
 
 # ──────────────────────────────────────────────
 # Page Configuration
@@ -105,6 +107,22 @@ st.markdown("""
 # Constants & Model Metadata
 # ──────────────────────────────────────────────
 ALL_MODELS_PATH = "all_models.pkl"
+METRICS_PATH = "model_comparison_metrics.csv"
+GITHUB_BASE_URL = "https://raw.githubusercontent.com/Rakeshraja06/ML-assingment-2-laptop-price-predictor-/main/"
+
+def download_file(filename):
+    """Download a file from GitHub if it's not present locally."""
+    if not os.path.exists(filename):
+        try:
+            url = GITHUB_BASE_URL + filename
+            response = requests.get(url)
+            if response.status_code == 200:
+                with open(filename, 'wb') as f:
+                    f.write(response.content)
+                return True
+        except Exception as e:
+            st.error(f"Error downloading {filename}: {e}")
+    return os.path.exists(filename)
 
 MODEL_INFO = {
     "XGBoost": {
@@ -150,7 +168,7 @@ MODEL_INFO = {
 # ──────────────────────────────────────────────
 @st.cache_resource
 def load_all_models():
-    if os.path.exists(ALL_MODELS_PATH):
+    if download_file(ALL_MODELS_PATH):
         return joblib.load(ALL_MODELS_PATH)
     return None
 
@@ -162,8 +180,8 @@ def get_model(name):
 
 @st.cache_data
 def load_metrics():
-    if os.path.exists("model_comparison_metrics.csv"):
-        return pd.read_csv("model_comparison_metrics.csv")
+    if download_file(METRICS_PATH):
+        return pd.read_csv(METRICS_PATH)
     return None
 
 # ──────────────────────────────────────────────
