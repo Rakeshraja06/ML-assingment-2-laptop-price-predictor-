@@ -707,14 +707,34 @@ with tab_batch:
         })
         st.dataframe(schema_info, hide_index=True, use_container_width=True)
 
-    # Template download
-    example_data = {
-        'Company': ['Apple'], 'TypeName': ['Ultrabook'], 'Ram': [8], 'Weight': [1.37],
-        'TouchScreen': [0], 'Ips': [1], 'Ppi': [227], 'Cpu_brand': ['Intel Core i5'],
-        'HDD': [0], 'SSD': [128], 'Gpu_brand': ['Intel'], 'Os': ['Mac']
-    }
-    template_csv = pd.DataFrame(example_data).to_csv(index=False).encode('utf-8')
-    st.download_button("📥 Download Template CSV", template_csv, "laptop_template.csv", "text/csv")
+    # Template & Sample Data download
+    col_dl1, col_dl2 = st.columns(2)
+    
+    with col_dl1:
+        example_data = {
+            'Company': ['Apple'], 'TypeName': ['Ultrabook'], 'Ram': [8], 'Weight': [1.37],
+            'TouchScreen': [0], 'Ips': [1], 'Ppi': [227], 'Cpu_brand': ['Intel Core i5'],
+            'HDD': [0], 'SSD': [128], 'Gpu_brand': ['Intel'], 'Os': ['Mac']
+        }
+        template_csv = pd.DataFrame(example_data).to_csv(index=False).encode('utf-8')
+        st.download_button("📥 Download Template CSV", template_csv, "laptop_template.csv", "text/csv", use_container_width=True)
+    
+    with col_dl2:
+        # Load a small sample from the cleaned dataset for evaluators to test
+        sample_data_val = None
+        if os.path.exists("laptop_data_cleaned.csv"):
+            sample_df = pd.read_csv("laptop_data_cleaned.csv").head(20)
+            # Remove target if present
+            if "Price_Category" in sample_df.columns:
+                sample_df = sample_df.drop("Price_Category", axis=1)
+            if "Price" in sample_df.columns:
+                sample_df = sample_df.drop("Price", axis=1)
+            sample_data_val = sample_df.to_csv(index=False).encode('utf-8')
+        
+        if sample_data_val:
+            st.download_button("🧪 Download Test Sample Data", sample_data_val, "sample_test_data.csv", "text/csv", use_container_width=True)
+        else:
+            st.info("💡 Run training to generate local sample data.")
 
     st.markdown("---")
     uploaded_file = st.file_uploader("Upload your CSV", type=["csv"])

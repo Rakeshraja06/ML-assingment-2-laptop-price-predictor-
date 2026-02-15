@@ -84,6 +84,7 @@ streamlit run app.py
 
 ## 🖥️ Streamlit App Features
 - **Batch Prediction**: Upload a CSV file and download category predictions.
+- **Sample Test Data**: Ready-to-use sample CSV download for easy evaluation.
 - **Model Selector**: Switch between all 6 trained models in real-time.
 - **Confusion Matrix**: Visual heatmap of classification accuracy per category.
 - **Performance Dashboards**: Interactive metrics and class-wise performance reports.
