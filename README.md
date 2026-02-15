@@ -2,7 +2,7 @@
 
 > **Multi-class classification** of laptops into **Low**, **Medium**, and **High** price categories using six machine learning models, including **ensemble methods** (Random Forest & XGBoost).
 
-[![Open in Streamlit](https://jnqrrbkmfgg45ywjtnoyrb.streamlit.app/)]
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://jnqrrbkmfgg45ywjtnoyrb.streamlit.app/)
 
 ---
 
