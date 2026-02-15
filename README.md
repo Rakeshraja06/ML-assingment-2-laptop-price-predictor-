@@ -99,8 +99,7 @@ ML Assingment 2/
 ├── model_comparison_metrics.csv    # Evaluation results
 ├── all_models.pkl                  # All 6 trained model pipelines (single file)
 │
-└── archive/                        # Previous code versions
-```
+└── zip file                        
 
 ---
 
