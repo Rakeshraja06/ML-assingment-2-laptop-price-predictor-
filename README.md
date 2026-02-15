@@ -91,7 +91,7 @@ streamlit run app.py
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Tools Used
 - **ML**: Scikit-learn, XGBoost, Joblib
 - **Data**: Pandas, NumPy
 - **Visualization**: Seaborn, Matplotlib, Plotly
