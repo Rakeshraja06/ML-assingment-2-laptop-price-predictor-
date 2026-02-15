@@ -1,17 +1,24 @@
 # 💻 ML Assignment 2 — Laptop Price Classification
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://jnqrrbkmfgg45ywjtnoyrb.streamlit.app/)
+> **Multi-class classification** of laptops into **Low**, **Medium**, and **High** price categories using six machine learning models, including **ensemble methods** (Random Forest & XGBoost).
+
+**Name:** Rakesh R  
+**BITS ID:** 2024dc04070  
+**Course:** Machine Learning  
+**Institution:** BITS Pilani  
+
+[![Live Demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://jnqrrbkmfgg45ywjtnoyrb.streamlit.app/)
 
 ---
 
 ## Section A: Problem Statement
 
-The goal of this project is to build and compare **six machine learning classification algorithms** to predict laptop price categories. 
+The goal of this project is to build and compare **six machine learning classification algorithms** to predict laptop price categories derived from continuous prices via quantile-based binning.
 
 ### Objective
 - Perform **multi-class classification** into **Low**, **Medium**, and **High** price categories.
 - Compare traditional models (Logistic Regression, Decision Tree, KNN, Naive Bayes) against ensemble methods (Random Forest, XGBoost).
-- Derive price categories from continuous price data using quantile-based binning (`pd.qcut`) to ensure balanced classes.
+- Ensure balanced classes using `pd.qcut` on the continuous price data.
 
 ---
 
@@ -25,19 +32,25 @@ The goal of this project is to build and compare **six machine learning classifi
 | **Target** | `Price_Category` — Low · Medium · High |
 | **Split** | 80 / 20 stratified |
 
-### Feature Details
-- **Company**: Manufacturer (Apple, HP, Dell, ...)
-- **TypeName**: Laptop type (Ultrabook, Gaming, ...)
-- **Ram**: RAM in GB
-- **Weight**: Weight in kg
-- **TouchScreen**: Binary (0/1)
-- **Ips**: IPS display (0/1)
-- **Ppi**: Pixels per inch
-- **Cpu_brand**: CPU brand
-- **HDD**: HDD capacity (GB)
-- **SSD**: SSD capacity (GB)
-- **Gpu_brand**: GPU brand (Intel, Nvidia, AMD)
-- **Os**: Operating system
+<details>
+<summary><strong>📑 Feature Details (click to expand)</strong></summary>
+
+| # | Feature | Type | Description |
+|---|---------|------|-------------|
+| 1 | `Company` | Categorical | Manufacturer (Apple, HP, Dell, …) |
+| 2 | `TypeName` | Categorical | Laptop type (Ultrabook, Gaming, …) |
+| 3 | `Ram` | Numerical | RAM in GB |
+| 4 | `Weight` | Numerical | Weight in kg |
+| 5 | `TouchScreen` | Binary | 0 / 1 |
+| 6 | `Ips` | Binary | IPS display (0 / 1) |
+| 7 | `Ppi` | Numerical | Pixels per inch |
+| 8 | `Cpu_brand` | Categorical | CPU brand |
+| 9 | `HDD` | Numerical | HDD capacity (GB) |
+| 10 | `SSD` | Numerical | SSD capacity (GB) |
+| 11 | `Gpu_brand` | Categorical | GPU brand (Intel, Nvidia, AMD) |
+| 12 | `Os` | Categorical | Operating system |
+
+</details>
 
 ---
 
@@ -56,12 +69,12 @@ The goal of this project is to build and compare **six machine learning classifi
 ### 2. Performance Observations
 | ML Model Name | Observation about model performance |
 |:--------------|:------------------------------------|
-| **Logistic Regression** | Provides a strong baseline. It handles the linearly separable aspects of the data well but is slightly outperformed by tree-based models. |
-| **Decision Tree** | Efficient and easy to interpret. It achieves comparable accuracy to Logistic Regression but is naturally more prone to variance compared to ensembles. |
-| **KNN** | Performs well by identifying similar laptop configurations. Its performance is on par with the basic tree and linear models for this dataset. |
-| **Naive Bayes** | The weakest performer (51.37%). This is likely due to its strong assumption of feature independence, which is violated by the high correlation between specs like RAM, CPU, and Price. |
-| **Random Forest (Ensemble)** | Significantly improves performance over a single Decision Tree by reducing overfitting through bagging, resulting in a robust 84.71% accuracy. |
-| **XGBoost (Ensemble)** | The top performer (87.45%). Its sequential boosting approach effectively minimizes errors that other models miss, making it the most reliable for this classification task. |
+| **Logistic Regression** | Provides a strong baseline. It handles the linearly separable aspects of the data well. |
+| **Decision Tree** | Efficient and easy to interpret. Comparable to Logistic Regression but more prone to variance. |
+| **KNN** | Performs well by identifying similar laptop configurations based on nearest neighbors. |
+| **Naive Bayes** | The weakest performer (51.37%) due to assumptions of feature independence. |
+| **Random Forest (Ensemble)** | Significantly improves performance over a single tree by using bagging to reduce overfitting. |
+| **XGBoost (Ensemble)** | The top performer (87.45%). Boosting sequentially minimizes errors for high accuracy. |
 
 ---
 
@@ -69,7 +82,6 @@ The goal of this project is to build and compare **six machine learning classifi
 
 ```
 ML Assingment 2/
-│
 ├── .devcontainer/                  # Development container configuration
 ├── README.md                       # Project documentation
 ├── requirements.txt                # Python dependencies
@@ -86,13 +98,35 @@ ML Assingment 2/
 
 ### Installation
 ```bash
+# 1. Clone & Install
 pip install -r requirements.txt
+
+# 2. Run App
 streamlit run app.py
 ```
 
 ---
 
-## 👤 Author 
-**Rakesh R** (2024dc04070)  
-BITS Pilani — Machine Learning, Assignment 2
-Submission Date: February 15, 2026
+## 🖥️ Streamlit App Features
+
+| Feature | Description |
+|---------|-------------|
+| 🎨 **Rich UI** | Gradient banners and dark-themed metric cards |
+| 📊 **Interactive Charts** | Plotly charts and heatmaps for model comparison |
+| 🔮 **Manual Prediction** | Get instant price category prediction from specs |
+| 📁 **Batch Prediction** | Upload CSV for bulk predictions |
+
+---
+
+## 🛠️ Technologies Used
+
+- **Language**: Python 3.8+
+- **ML Framework**: scikit-learn, XGBoost
+- **Data**: Pandas, NumPy
+- **Visualization**: Plotly, Matplotlib, Seaborn
+- **Web App**: Streamlit
+- **Deployment**: Streamlit Cloud
+
+---
+
+**Submission Date:** February 15, 2026
