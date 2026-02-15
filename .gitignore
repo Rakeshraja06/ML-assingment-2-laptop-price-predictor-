@@ -1,1 +1,7 @@
+.devcontainer/
+image*.png
+*.zip
 submission.md
+.DS_Store
+__pycache__/
+*.log
