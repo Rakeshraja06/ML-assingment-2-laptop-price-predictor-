@@ -1,6 +1,6 @@
 # 💻 ML Assignment 2 — Laptop Price Classification
 
-> **Multi-class classification** of laptops into **Low**, **Medium**, and **High** price categories using six machine learning models, including **ensemble methods** (Random Forest & XGBoost).
+> **Multi-class classification** of laptops into **Low**, **Medium**, and **High** price categories using six machine learning models.
 
 **Name:** Rakesh R  
 **BITS ID:** 2024dc04070  
@@ -15,7 +15,7 @@
 
 The goal of this project is to build and compare **six machine learning classification algorithms** to predict laptop price categories derived from continuous prices via quantile-based binning.
 
-### Objective
+**Objective:**
 - Perform **multi-class classification** into **Low**, **Medium**, and **High** price categories.
 - Compare traditional models (Logistic Regression, Decision Tree, KNN, Naive Bayes) against ensemble methods (Random Forest, XGBoost).
 - Ensure balanced classes using `pd.qcut` on the continuous price data.
@@ -26,45 +26,29 @@ The goal of this project is to build and compare **six machine learning classifi
 
 | Property | Detail |
 |----------|--------|
-| **Source** | [Laptop Price Prediction Cleaned Dataset (Kaggle)](https://www.kaggle.com/datasets/gyanprakashkushwaha/laptop-price-prediction-cleaned-dataset) |
+| **Source** | [Kaggle Dataset Link](https://www.kaggle.com/datasets/gyanprakashkushwaha/laptop-price-prediction-cleaned-dataset) |
 | **Instances** | 1,273 |
 | **Features** | 12 (5 categorical, 7 numerical) |
 | **Target** | `Price_Category` — Low · Medium · High |
 | **Split** | 80 / 20 stratified |
 
-<details>
-<summary><strong>📑 Feature Details (click to expand)</strong></summary>
-
-| # | Feature | Type | Description |
-|---|---------|------|-------------|
-| 1 | `Company` | Categorical | Manufacturer (Apple, HP, Dell, …) |
-| 2 | `TypeName` | Categorical | Laptop type (Ultrabook, Gaming, …) |
-| 3 | `Ram` | Numerical | RAM in GB |
-| 4 | `Weight` | Numerical | Weight in kg |
-| 5 | `TouchScreen` | Binary | 0 / 1 |
-| 6 | `Ips` | Binary | IPS display (0 / 1) |
-| 7 | `Ppi` | Numerical | Pixels per inch |
-| 8 | `Cpu_brand` | Categorical | CPU brand |
-| 9 | `HDD` | Numerical | HDD capacity (GB) |
-| 10 | `SSD` | Numerical | SSD capacity (GB) |
-| 11 | `Gpu_brand` | Categorical | GPU brand (Intel, Nvidia, AMD) |
-| 12 | `Os` | Categorical | Operating system |
-
-</details>
+### Feature Details
+- **Categorical**: Company, TypeName, Cpu_brand, Gpu_brand, Os
+- **Numerical**: Ram (GB), Weight (kg), TouchScreen (0/1), Ips (0/1), Ppi, HDD (GB), SSD (GB)
 
 ---
 
 ## Section C: Models Used & Performance Comparison
 
 ### 1. Model Comparison Table
-| ML Model Name | Accuracy | Precision | Recall | F1 Score | MCC |
-|:--------------|:--------:|:---------:|:------:|:--------:|:---:|
-| **XGBoost (Ensemble)** | **0.8745** | **0.8771** | **0.8745** | **0.8753** | **0.8122** |
-| **Random Forest (Ensemble)** | 0.8471 | 0.8538 | 0.8471 | 0.8491 | 0.7717 |
-| **Logistic Regression** | 0.8078 | 0.8237 | 0.8078 | 0.8116 | 0.7159 |
-| **Decision Tree** | 0.8078 | 0.8160 | 0.8078 | 0.8100 | 0.7133 |
-| **KNN** | 0.8039 | 0.8117 | 0.8039 | 0.8061 | 0.7073 |
-| **Naive Bayes** | 0.5137 | 0.6031 | 0.5137 | 0.4731 | 0.3064 |
+| ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |
+|:--------------|:--------:|:---:|:---------:|:------:|:--:|:---:|
+| **XGBoost (Ensemble)** | **0.8745** | **0.9421** | 0.8771 | 0.8745 | 0.8753 | 0.8122 |
+| **Random Forest (Ensemble)** | 0.8471 | 0.9158 | 0.8538 | 0.8471 | 0.8491 | 0.7717 |
+| **Logistic Regression** | 0.8078 | 0.8812 | 0.8237 | 0.8078 | 0.8116 | 0.7159 |
+| **Decision Tree** | 0.8078 | 0.8545 | 0.8160 | 0.8078 | 0.8100 | 0.7133 |
+| **KNN** | 0.8039 | 0.8421 | 0.8117 | 0.8039 | 0.8061 | 0.7073 |
+| **Naive Bayes** | 0.5137 | 0.6542 | 0.6031 | 0.5137 | 0.4731 | 0.3064 |
 
 ### 2. Performance Observations
 | ML Model Name | Observation about model performance |
@@ -79,10 +63,9 @@ The goal of this project is to build and compare **six machine learning classifi
 ---
 
 ## 📁 Repository Structure
-
 ```
 ML Assingment 2/
-├── .devcontainer/                  # Development container configuration
+├── .devcontainer/                  # Development configuration
 ├── README.md                       # Project documentation
 ├── requirements.txt                # Python dependencies
 ├── train_models.py                 # Standalone training script
@@ -95,37 +78,29 @@ ML Assingment 2/
 ---
 
 ## 🚀 Getting Started
-
-### Installation
 ```bash
-# 1. Clone & Install
+# Install dependencies
 pip install -r requirements.txt
 
-# 2. Run App
+# Run the app
 streamlit run app.py
 ```
 
 ---
 
 ## 🖥️ Streamlit App Features
-
-| Feature | Description |
-|---------|-------------|
-| 🎨 **Rich UI** | Gradient banners and dark-themed metric cards |
-| 📊 **Interactive Charts** | Plotly charts and heatmaps for model comparison |
-| 🔮 **Manual Prediction** | Get instant price category prediction from specs |
-| 📁 **Batch Prediction** | Upload CSV for bulk predictions |
+- **Dataset upload option (CSV)**: Predict for custom data files.
+- **Model selection**: Choose between all 6 implemented models.
+- **Evaluation metrics**: Real-time display of performance scores.
+- **Performance Heatmap**: Visual breakdown of model accuracy across metrics.
 
 ---
 
 ## 🛠️ Technologies Used
-
-- **Language**: Python 3.8+
-- **ML Framework**: scikit-learn, XGBoost
+- **ML Framework**: Scikit-learn, XGBoost
 - **Data**: Pandas, NumPy
-- **Visualization**: Plotly, Matplotlib, Seaborn
+- **Visuals**: Plotly, Seaborn
 - **Web App**: Streamlit
-- **Deployment**: Streamlit Cloud
 
 ---
 

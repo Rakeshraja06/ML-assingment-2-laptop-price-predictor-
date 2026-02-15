@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import os
 import joblib
-import gdown
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
@@ -19,18 +18,13 @@ from sklearn.metrics import (
     precision_score,
     recall_score,
     f1_score,
-    matthews_corrcoef
+    matthews_corrcoef,
+    roc_auc_score
 )
 
 # 1. Load Dataset
 file_name = "laptop_data_cleaned.csv"
-if not os.path.exists(file_name):
-    # Direct download link
-    direct_download_url = 'https://drive.google.com/uc?id=1W5Hgc8HTOm1ShOS0Bt_0Dwtq1scS5HmV'
-    print(f"Downloading '{file_name}' from Google Drive...")
-    gdown.download(direct_download_url, output=file_name, quiet=False)
-else:
-    print(f"'{file_name}' already exists.")
+# df already exists
 
 df = pd.read_csv(file_name)
 
@@ -91,20 +85,44 @@ for name, model in models.items():
         ("classifier", model)
     ])
     
-    if name == "XGBoost":
-         # XGBoost requires numerical labels
-        y_train_encoded = y_train.cat.codes
-        pipeline.fit(X_train, y_train_encoded)
-        y_pred_numeric = pipeline.predict(X_test)
-        y_pred = original_categories[y_pred_numeric]
-    else:
-        pipeline.fit(X_train, y_train)
-        y_pred = pipeline.predict(X_test)
+    try:
+        if name == "XGBoost":
+             # XGBoost requires numerical labels
+            y_train_encoded = y_train.cat.codes
+            pipeline.fit(X_train, y_train_encoded)
+            y_pred_numeric = pipeline.predict(X_test)
+            y_pred = original_categories[y_pred_numeric]
+        else:
+            pipeline.fit(X_train, y_train)
+            y_pred = pipeline.predict(X_test)
+    except Exception as e:
+        print(f"Skipping {name} due to error: {e}")
+        continue
         
+    # Calculate probabilities for AUC
+    if hasattr(pipeline, "predict_proba"):
+        y_prob = pipeline.predict_proba(X_test)
+    else:
+        # For models without predict_proba (like some Naive Bayes cases, though GaussianNB has it)
+        # we can use decison_function if available, or just skip if necessary
+        y_prob = None
+
+    # AUC calculation (multi-class OVR)
+    auc_score = 0
+    if y_prob is not None:
+        try:
+            # XGBoost encoded labels, so y_test needs to match types for roc_auc_score
+            y_test_numeric = y_test.cat.codes
+            auc_score = roc_auc_score(y_test_numeric, y_prob, multi_class="ovr", average="weighted")
+        except Exception as e:
+            print(f"Warning: Could not calculate AUC for {name}: {e}")
+            auc_score = 0
+
     # Metrics
     results.append({
         "ML Model Name": name,
         "Accuracy": accuracy_score(y_test, y_pred),
+        "AUC Score": auc_score,
         "Precision": precision_score(y_test, y_pred, average="weighted"),
         "Recall": recall_score(y_test, y_pred, average="weighted"),
         "F1 Score": f1_score(y_test, y_pred, average="weighted"),
