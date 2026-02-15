@@ -231,8 +231,11 @@ with st.sidebar:
         row = metrics_df[metrics_df["ML Model Name"] == selected_model_name]
         if not row.empty:
             acc = row["Accuracy"].values[0]
+            auc = row["AUC Score"].values[0]
             f1  = row["F1 Score"].values[0]
+            
             st.metric("Accuracy", f"{acc:.2%}")
+            st.metric("AUC Score", f"{auc:.2%}")
             st.metric("F1 Score", f"{f1:.2%}")
 
 # ──────────────────────────────────────────────
@@ -270,7 +273,7 @@ tab_perf, tab_predict, tab_batch = st.tabs([
 with tab_perf:
     if metrics_df is not None:
         model_row = metrics_df[metrics_df["ML Model Name"] == selected_model_name]
-        metric_cols = ["Accuracy", "Precision", "Recall", "F1 Score", "MCC"]
+        metric_cols = ["Accuracy", "AUC Score", "Precision", "Recall", "F1 Score", "MCC"]
 
         # ── Model info banner ──
         info = MODEL_INFO[selected_model_name]
@@ -285,9 +288,10 @@ with tab_perf:
         # ── KPI metric cards ──
         if not model_row.empty:
             r = model_row.iloc[0]
-            cols = st.columns(5)
+            cols = st.columns(6)
             for col, (label, key) in zip(cols, [
                 ("Accuracy", "Accuracy"),
+                ("AUC Score", "AUC Score"),
                 ("Precision", "Precision"),
                 ("Recall", "Recall"),
                 ("F1 Score", "F1 Score"),
